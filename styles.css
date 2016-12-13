@@ -1,0 +1,11 @@
+.content {
+    display: flex;
+}
+.row {
+    display: flex;
+}
+.canvasWrapper,
+.controls {
+    box-sizing: border-box;
+    border: 1px solid #000;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>particle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="content">
+  <div class="canvasWrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+  <div class="controls">
+    <div class="row">
+      <label>num<input id="num" type="text" value="100"></label>
+      <button id="initButton">start</button>
+    </div>
+    <div class="row">
+      <label for="speed">speed<input id="speed" min="1" max="5" step="1" value="3" type="range"></label><span id="speed-value"></span>
+    </div>
+    <div class="row">
+      <label for="r">r<input id="r" min="1" max="16" step="1" value="3" type="range"></label><span id="r-value"></span>
+    </div>
+  </div>
+</div>
+<script src="dist/app.bundle.js"></script>
+</body>
+</html>
