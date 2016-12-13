@@ -1,6 +1,9 @@
 
-import Entity from './Entity';
 import {WIDTH, HEIGHT} from './constants';
+import $ from './lib/queryselector';
+import Entity from './lib/Entity';
+import Renderer from './lib/EntityRenderer';
+const renderer = new Renderer();
 
 const state = {
     r: 1,
@@ -11,16 +14,21 @@ const state = {
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    document.getElementById('initButton').addEventListener('click', () => {
+    $('#initButton').addEventListener('click', () => {
         init(state);
     });
-    const numInput = document.getElementById('num');
-    const canvas = document.getElementById('canvas');
+    const canvas = $('#canvas');
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
     const ctx = canvas.getContext('2d');
-    const speedInput = document.getElementById('speed');
-    const rInput = document.getElementById('r');
-    const speedValue = document.getElementById('speed-value');
-    const rValue = document.getElementById('r-value');
+
+    const numInput = $('#num');
+    const speedInput = $('#speed');
+    const rInput = $('#r');
+    const speedValue = $('#speed-value');
+    const rValue = $('#r-value');
+
+    let entities = [];
 
     function textUpdate(props) {
         speedValue.innerText = props.speed;
@@ -36,38 +44,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     function rUpdate(value, state) {
         state.r = parseInt(value);
+        entities.forEach(entity => {
+            entity.setRadius(state.r);
+        });
         textUpdate(state);
     }
     rInput.addEventListener('input', () => {
         rUpdate(rInput.value, state);
     });
 
+    requestAnimationFrame(() => {
+        update(state);
+    });
+
     function numUpdate(value, state) {
         state.num = parseInt(value);
     }
 
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-    let entities = [];
-    const render = function (props) {
+    function update(props) {
+        entities.forEach(entity => {
+            entity.preUpdate(entities);
+        });
+        entities.forEach(entity => {
+            entity.update(props.speed)
+        });
+        render(props);
+        requestAnimationFrame(() => {
+            update(state);
+        });
+    }
+    function render(props) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         entities.forEach(entity => {
-            ctx.beginPath();
-            ctx.arc(entity.x, entity.y, props.r, 0, Math.PI * 2, false);
-            ctx.fill();
+            renderer.render(ctx, entity, props);
         });
-    };
-    const update = function update() {
-        entities.forEach(entity => {
-            entity.calcAccel(entities);
-        });
-        entities.forEach(entity => {
-            entity.update(state.speed)
-        });
-        render(state);
-        requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
+    }
 
     function init(props) {
         entities = [];
@@ -77,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < props.num; i++) {
             const x = Math.floor(Math.random() * (WIDTH - props.r));
             const y = Math.floor(Math.random() * (HEIGHT - props.r));
-            const e = new Entity(x, y);
+            const e = new Entity(x, y, props.r);
             entities.push(e);
         }
     }

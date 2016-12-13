@@ -1,18 +1,23 @@
 'use strict';
 
-import {WIDTH, HEIGHT} from './constants';
+import {WIDTH, HEIGHT} from '../constants';
 
 export default class Entity {
-    constructor(x, y) {
+    constructor(x, y, r) {
         this.x = x;
         this.y = y;
+        this.r = r;
         this.vx = 0;
         this.vy = 0;
         this.ax = 0;
         this.ay = 0;
     }
 
-    calcAccel(_entities) {
+    setRadius(r) {
+        this.r = r;
+    }
+
+    preUpdate(_entities) {
         const rad = Math.atan2((HEIGHT / 2)- this.y, (WIDTH / 2) - this.x);
         const entities = _entities.filter(e => e !== this);
         const rads = entities.map(e => {
@@ -28,11 +33,11 @@ export default class Entity {
         this.ay += Math.sin(rad) / 10;
     }
 
-    update(speed) {
+    update(props) {
         this.vx += this.ax;
         this.vy += this.ay;
-        this.x += this.vx * speed;
-        this.y += this.vy * speed;
+        this.x += this.vx * props.speed;
+        this.y += this.vy * props.speed;
 
         // remove comments if you want balls to stop at the wall
         // if (this.x < 0) {
