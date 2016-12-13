@@ -81,16 +81,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function init(props) {
-        entities = [];
         numUpdate(numInput.value, props);
         speedUpdate(speedInput.value, props);
         rUpdate(rInput.value, props);
-        for (let i = 0; i < props.num; i++) {
+        // entities = generateRandomEntities(props);
+        // entities = generateCircleEntities(props);
+        entities = generateNautilusEntities(props);
+    }
+
+    function generateRandomEntities(props) {
+        return Array.from({length: props.num}, (_, i) => {
             const x = Math.floor(Math.random() * (WIDTH - props.r));
             const y = Math.floor(Math.random() * (HEIGHT - props.r));
-            const e = new Entity(x, y, props.r);
-            entities.push(e);
-        }
+            return new Entity(x, y, props.r);
+        });
+    }
+    function generateNautilusEntities(props) {
+        return Array.from({length: props.num}, (_, i) => {
+            const rad = Math.PI * 2 / props.num * i;
+            const x = Math.cos(rad) * (i * 2) + WIDTH / 2;
+            const y = Math.sin(rad) * (i * 2) + HEIGHT / 2;
+            return new Entity(x, y, props.r);
+        });
+    }
+    function generateCircleEntities(props) {
+        return Array.from({length: props.num}, (_, i) => {
+            const rad = Math.PI * 2 / props.num * i;
+            const x = Math.cos(rad) * 196 + WIDTH / 2;
+            const y = Math.sin(rad) * 196 + HEIGHT / 2;
+            return new Entity(x, y, props.r);
+        });
     }
 });
 
