@@ -1,0 +1,20 @@
+{
+  "name": "particle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch -d & browser-sync start -s \"./\" --files \"dist/**/*,index.html\" --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "browser-sync": "^2.18.5",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.8.4"
+  }
+}
