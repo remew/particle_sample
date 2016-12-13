@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             entity.preUpdate(entities);
         });
         entities.forEach(entity => {
-            entity.update(props.speed)
+            entity.update(props)
         });
         render(props);
         requestAnimationFrame(() => {
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function render(props) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         entities.forEach(entity => {
             renderer.render(ctx, entity, props);
         });
