@@ -1,11 +1,83 @@
-.content {
+
+/****************************************/
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+    background: #f0f0f0;
+}
+h1,h2,h3,h4,h5,h6,p {
+    margin: 0;
+}
+/****************************************/
+
+.heading h1 {
+    font-size: 21px;
+}
+
+#fps {
+    font-size: 10px;
+    margin: 0;
+}
+
+.row > label {
+    width: 50px;
+    text-align: right;
+    margin-right: 8px;
+}
+
+.main, .row {
     display: flex;
 }
-.row {
-    display: flex;
+.card {
+    background: #fff;
+    padding: 8px;
+
+    /* from http://codepen.io/shyndman/pen/c5394ddf2e8b2a5c9185904b57421cdb */
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
-.canvasWrapper,
-.controls {
+#canvas {
+    padding: 0;
+}
+
+#canvas, .controls {
     box-sizing: border-box;
-    border: 1px solid #000;
 }
+
+@media only screen and (min-width:541px) {
+    .content {
+        margin: 0 auto;
+        width: 786px;
+    }
+    .heading {
+        margin: 16px 0 16px 0;
+    }
+    #canvas {
+        height: 512px;
+        margin-right: 8px;
+        width: 512px;
+    }
+    .controls {
+        margin-left: 8px;
+        width: 256px;
+    }
+}
+
+@media only screen and (max-width:540px) {
+    .main {
+        flex-direction: column-reverse;
+    }
+    .heading {
+        margin: 2%;
+    }
+    #canvas, .controls {
+        width: 96%;
+        margin: 0 2% 2% 2%;
+    }
+}
+
