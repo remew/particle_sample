@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rInput = $('#r');
     const speedValue = $('#speed-value');
     const rValue = $('#r-value');
+    const fpsText = $('#fps');
 
     let entities = [];
 
@@ -59,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
         rUpdate(rInput.value, state);
     });
 
-    requestAnimationFrame(() => {
+    let lastTimestamp = -1;
+    requestAnimationFrame(timestamp => {
+        lastTimestamp = timestamp;
         update(state);
     });
 
@@ -75,7 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
             entity.update(props)
         });
         render(props);
-        requestAnimationFrame(() => {
+        requestAnimationFrame(timestamp => {
+            const diff = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+            fpsText.innerText = 'FPS:' + Math.floor(1000000 / diff) / 1000;
             update(state);
         });
     }
