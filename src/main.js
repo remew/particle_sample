@@ -71,8 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function update(props) {
+        const center = {x: WIDTH / 2, y: HEIGHT /2};
         entities.forEach(entity => {
-            entity.preUpdate(entities);
+            entity.preUpdate(center);
         });
         entities.forEach(entity => {
             entity.update(props)
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             update(state);
         });
     }
+
     function render(props) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         entities.forEach(entity => {
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return Array.from({length: props.num}, (_, i) => {
             const x = Math.floor(Math.random() * (WIDTH - props.r));
             const y = Math.floor(Math.random() * (HEIGHT - props.r));
-            return new Entity(x, y, props.r);
+            return new Entity(x, y, props.r + Math.random());
         });
     }
     function generateNautilusEntities(props) {
