@@ -98,8 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         numUpdate(numInput.value, props);
         speedUpdate(speedInput.value, props);
         rUpdate(rInput.value, props);
-        // entities = generateRandomEntities(props);
-        // entities = generateCircleEntities(props);
         entities = gen(props);
     }
 
@@ -113,9 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateNautilusEntities(props) {
         return Array.from({length: props.num}, (_, i) => {
             const rad = Math.PI * 2 / props.num * i;
-            const x = Math.cos(rad) * (i * 2) + WIDTH / 2;
-            const y = Math.sin(rad) * (i * 2) + HEIGHT / 2;
-            return new Entity(x, y, props.r);
+            const ratio = (WIDTH / 2) / props.num;
+            const x = Math.cos(rad) * (i * ratio) + WIDTH / 2;
+            const y = Math.sin(rad) * (i * ratio) + HEIGHT / 2;
+            return new Entity(x, y, props.r + Math.random());
         });
     }
     function generateCircleEntities(props) {
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rad = Math.PI * 2 / props.num * i;
             const x = Math.cos(rad) * 196 + WIDTH / 2;
             const y = Math.sin(rad) * 196 + HEIGHT / 2;
-            return new Entity(x, y, props.r);
+            return new Entity(x, y, props.r + Math.random());
         });
     }
 });
