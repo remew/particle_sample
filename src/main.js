@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function speedUpdate(value, state) {
-        state.speed  = 0.001 * Math.pow(10, value);
+        state.speed  = value;
         textUpdate(state);
     }
     speedInput.addEventListener('input', () => {
