@@ -14,8 +14,14 @@ const state = {
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    $('#initButton').addEventListener('click', () => {
-        init(state);
+    $('#init-random').addEventListener('click', () => {
+        init(state, generateRandomEntities);
+    });
+    $('#init-circle').addEventListener('click', () => {
+        init(state, generateCircleEntities);
+    });
+    $('#init-nautilus').addEventListener('click', () => {
+        init(state, generateNautilusEntities);
     });
     const canvas = $('#canvas');
     canvas.width = WIDTH;
@@ -80,13 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function init(props) {
+    function init(props, gen) {
         numUpdate(numInput.value, props);
         speedUpdate(speedInput.value, props);
         rUpdate(rInput.value, props);
         // entities = generateRandomEntities(props);
         // entities = generateCircleEntities(props);
-        entities = generateNautilusEntities(props);
+        entities = gen(props);
     }
 
     function generateRandomEntities(props) {
