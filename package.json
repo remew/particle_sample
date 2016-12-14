@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --watch -d & browser-sync start -s \"./\" --files \"dist/**/*,index.html\" --open"
+    "start": "webpack --watch -d & browser-sync start -s \"./\" --files \"dist/**/*,styles.css,index.html\" --open"
   },
   "keywords": [],
   "author": "",
